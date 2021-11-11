@@ -15,6 +15,7 @@ const athena = new AWS.Athena({
  * @param {Function} callback
  */
 function createQueryExecutionId(callback){
+    console.log("******createQueryExecutionId****");
     /**doing resultConfiguration, but we will not save query result there. */
     const params = {
         QueryString: 'SELECT * FROM myfirstdb.final_test_harsha limit 10;', /* required */
@@ -26,6 +27,7 @@ function createQueryExecutionId(callback){
         }
     };
     athena.startQueryExecution(params, function(err, data) {
+        console.log("***Query exec Stage*****", err, data);
         callback(err?err.stack:err, data)
     });
 }

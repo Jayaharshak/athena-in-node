@@ -29,5 +29,5 @@ async.waterfall([
             });
         }
         ],(error, result) => {
-        	console.log("******result*******",error, JSON.stringify(result));
+        	console.log("******result*******",error, result);
         })
