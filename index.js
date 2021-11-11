@@ -5,10 +5,10 @@ async.waterfall([
         (callback)=>{
             AthenaQuery.createQueryExecutionId(callback);
         },
-        (query, callback)=>{
+        async (query, callback)=>{
             async.retry({
                 times: 60,
-                interval: 5000
+                interval: 10000
             }, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
                 console.log("CHECKING QUERY STATUS", err, result);
                 if (!err) {
@@ -20,6 +20,7 @@ async.waterfall([
             });
         },
         (query, callback)=>{
+            
             AthenaQuery.getQueryResultByExecutionId(query.QueryExecutionId, (err, result)=>{
                 console.log("QUERY RESULTS BY EXEC.ID", err, result);
                 callback(null, result, query)
