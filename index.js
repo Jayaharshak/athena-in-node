@@ -8,7 +8,7 @@ async.waterfall([
     (query, callback) => {
         async.retry(1000, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
             console.log("CHECKING QUERY STATUS", err, result);
-            if (!err && result.QueryExecution.Status.State === 'SUCCEEDED') {
+            if (!err) {
                 console.log("SUCCESS");
                 callback(null, query)
             }
