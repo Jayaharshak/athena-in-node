@@ -1,6 +1,11 @@
 const AWS = require('aws-sdk');
-const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
-AWS.config.credentials = credentials;
+// const credentials = new AWS.SharedIniFileCredentials({profile: 'default'});
+// AWS.config.credentials = credentials;
+const awsCredentials = {
+    region: "us-east-1"
+};
+
+AWS.config.update(awsCredentials);
 const athena = new AWS.Athena({
     region: 'us-east-1'
 });
@@ -12,9 +17,9 @@ const athena = new AWS.Athena({
 function createQueryExecutionId(callback){
     /**doing resultConfiguration, but we will not save query result there. */
     const params = {
-        QueryString: 'select * From testdatabase.test-table', /* required */
+        QueryString: 'SELECT * FROM myfirstdb.final_test_harsha limit 10;', /* required */
         ResultConfiguration: { /* required */
-            OutputLocation: `s3://athena-query-output-log/`, /* required */
+            OutputLocation: `s3://harsha-test-athena/`, /* required */
             EncryptionConfiguration: {
                 EncryptionOption: 'SSE_S3', /* required */
             }
