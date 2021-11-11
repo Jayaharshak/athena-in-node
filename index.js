@@ -6,16 +6,16 @@ async.waterfall([
         AthenaQuery.createQueryExecutionId(callback);
     },
     (query, callback) => {
-        async.retry({
-            times: 60,
-            interval: 10000
-        }, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
+        async.retry(1000, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
             console.log("CHECKING QUERY STATUS", err, result);
-            if (!err) {
+            if (!err && result.QueryExecution.Status.State === 'SUCCEEDED') {
+                console.log("SUCCESS");
                 callback(null, query)
             }
-            else {
+            else if (err) {
                 callback(err)
+            } else {
+                console.log("NOT SURE WHAT TO DO");
             }
         });
     },

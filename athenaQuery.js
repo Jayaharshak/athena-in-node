@@ -39,7 +39,7 @@ function checkQueryCreateStatus(callback){
         QueryExecutionId: this.QueryExecutionId /* required */
     };
     athena.getQueryExecution(params, function(err, data) {
-        if (err) console.log(err, err.stack); // an error occurred
+        if (err) console.log("ERRRRRRR",err, err.stack); // an error occurred
         else{
             if(data && data.QueryExecution && data.QueryExecution.Status && data.QueryExecution.Status.State && data.QueryExecution.Status.State === 'RUNNING'){
                 console.log("Athena Query status is running");
