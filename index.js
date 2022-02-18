@@ -3,10 +3,11 @@ const async = require('async');
 
 async.waterfall([
     (callback) => {
+        console.log("CALLBACK 1", callback);
         AthenaQuery.createQueryExecutionId(callback);
     },
     (query, callback) => {
-        async.retry(1000, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
+        async.retry(60000, AthenaQuery.checkQueryCreateStatus.bind(query), (err, result) => {
             console.log("CHECKING QUERY STATUS", err, result);
             if (!err) {
                 console.log("SUCCESS");

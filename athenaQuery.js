@@ -18,9 +18,9 @@ function createQueryExecutionId(callback){
     console.log("******createQueryExecutionId****");
     /**doing resultConfiguration, but we will not save query result there. */
     const params = {
-        QueryString: 'SELECT * FROM myfirstdb.final_test_harsha limit 10;', /* required */
+        QueryString: 'SELECT * FROM firststream.tb_first_stream limit 10;', /* required */
         ResultConfiguration: { /* required */
-            OutputLocation: `s3://harsha-test-athena/`, /* required */
+            OutputLocation: `s3://ahtena-query-results/`, /* required */
             EncryptionConfiguration: {
                 EncryptionOption: 'SSE_S3', /* required */
             }
